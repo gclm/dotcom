@@ -1,16 +1,105 @@
 ---
 title: Shortcuts
-description: Save filters as shortcuts for fast access.
+description: Save filter expressions as shortcuts for fast access.
 ---
 
-Shortcuts are saved filters that help you jump to a specific subset of memos quickly.
+Shortcuts let you save a filter expression as a named entry in the sidebar, giving you one-click access to any subset of your memos. They sync across devices with your account.
 
-## Create a shortcut
+## Filter expressions
 
-1. Open the shortcuts section in the sidebar.
-2. Create a new shortcut and give it a title.
-3. Enter a filter expression to define which memos it should show.
+A filter expression is a boolean expression evaluated against each memo — only memos where it returns `true` are shown. The language is based on [CEL (Common Expression Language)](https://cel.dev).
 
-## Manage shortcuts
+### Fields
 
-Shortcuts can be edited or deleted from the same section in the sidebar. They sync with your account settings.
+| Field | Type | Description |
+|-------|------|-------------|
+| `content` | `string` | Full text content of the memo |
+| `visibility` | `string` | `"PUBLIC"`, `"PROTECTED"`, or `"PRIVATE"` |
+| `pinned` | `bool` | Whether the memo is pinned |
+| `tags` / `tag` | `list<string>` | Tags on the memo (`tag` is an alias for `tags`) |
+| `created_ts` | `int` (Unix seconds) | When the memo was created |
+| `updated_ts` | `int` (Unix seconds) | When the memo was last updated |
+| `has_task_list` | `bool` | Whether the memo contains a task list |
+| `has_link` | `bool` | Whether the memo contains a link |
+| `has_code` | `bool` | Whether the memo contains a code block |
+| `has_incomplete_tasks` | `bool` | Whether the memo has any incomplete tasks |
+
+### Operators
+
+| Operator | Description |
+|----------|-------------|
+| `==`, `!=` | Equality and inequality |
+| `<`, `>`, `<=`, `>=` | Numeric or timestamp comparison |
+| `&&`, `\|\|`, `!` | Logical AND, OR, NOT |
+| `in` | Check if a value exists in a list |
+| `.contains(s)` | Check if a string field contains `s` |
+| `.startsWith(s)`, `.endsWith(s)` | String predicates, used inside `exists()` |
+
+### Functions
+
+| Function | Description |
+|----------|-------------|
+| `now()` | Current time as a Unix timestamp (seconds) |
+| `tags.exists(t, predicate)` | `true` if any tag satisfies the predicate |
+
+## Examples
+
+**Pinned memos**
+
+```
+pinned
+```
+
+**A specific tag**
+
+```
+"journal" in tags
+```
+
+**A tag namespace** — matches `project/alpha`, `project/beta`, etc.:
+
+```
+tags.exists(t, t.startsWith("project/"))
+```
+
+**A keyword in content**
+
+```
+content.contains("TODO")
+```
+
+**Open tasks**
+
+```
+has_incomplete_tasks == true
+```
+
+**Recently active** — updated within the last 7 days:
+
+```
+updated_ts > now() - 604800
+```
+
+**On this day last year** — a 24-hour window exactly 365 days ago:
+
+```
+created_ts >= now() - 31536000 && created_ts < now() - 31449600
+```
+
+**This week's journal**
+
+```
+"journal" in tags && created_ts > now() - 604800
+```
+
+**Pinned work items with open tasks**
+
+```
+pinned && "work" in tags && has_incomplete_tasks == true
+```
+
+**Shared notes** — public memos containing a link or code block:
+
+```
+visibility == "PUBLIC" && (has_link == true || has_code == true)
+```
