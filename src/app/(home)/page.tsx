@@ -108,7 +108,7 @@ export default function HomePage() {
                 icon: <ZapIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
                 title: "Blazing Fast",
                 description:
-                  "Capture ideas at the speed of thought. Local-first architecture means zero lag, even with thousands of notes.",
+                  "Capture ideas at the speed of thought. Lightweight server with a fast database means snappy performance.",
               },
               {
                 icon: <PenToolIcon className="w-6 h-6 sm:w-8 sm:h-8" />,

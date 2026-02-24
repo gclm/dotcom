@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Scratchpad - Memos",
   description:
     "A browser-local workspace for temporary brainstorming that connects to your self-hosted Memos instance. Work locally, save remotely when ready.",
-  keywords: ["scratchpad", "brainstorming", "notes", "memos", "local-first"],
+  keywords: ["scratchpad", "brainstorming", "notes", "memos"],
   openGraph: {
     title: "Scratchpad - Memos",
     description: "A browser-local workspace for temporary brainstorming that connects to your self-hosted Memos instance.",
