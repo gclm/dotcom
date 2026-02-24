@@ -125,7 +125,7 @@ export default function HomePage() {
               {
                 icon: <GithubIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
                 title: "Truly Open Source",
-                description: "MIT licensed and transparent. Join 45K+ stars and 340+ contributors building something better, together.",
+                description: "MIT licensed and transparent. Join 57K+ stars and 370+ contributors building something better, together.",
               },
               {
                 icon: <DollarSignIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
@@ -258,17 +258,17 @@ export default function HomePage() {
                 {[
                   {
                     icon: <StarIcon className="w-8 h-8 sm:w-10 sm:h-10" />,
-                    value: "45K+",
+                    value: "57K+",
                     label: "GitHub Stars",
                   },
                   {
                     icon: <UsersIcon className="w-8 h-8 sm:w-10 sm:h-10" />,
-                    value: "340+",
+                    value: "370+",
                     label: "Contributors",
                   },
                   {
                     icon: <TrendingUpIcon className="w-8 h-8 sm:w-10 sm:h-10" />,
-                    value: "7.1M+",
+                    value: "8.5M+",
                     label: "Docker Pulls",
                   },
                   {
