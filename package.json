@@ -9,7 +9,7 @@
     "build": "next build",
     "dev": "next dev --turbo",
     "start": "next start",
-    "postinstall": "node scripts/generate-openapi.mjs && fumadocs-mdx",
+    "postinstall": "node scripts/generate-openapi.mjs && fumadocs-mdx && pnpm format",
     "lint": "biome check",
     "format": "biome format --write",
     "check": "biome check --write"

@@ -1,5 +1,4 @@
 import {
-  BirdIcon,
   BookOpenIcon,
   CodeIcon,
   DollarSignIcon,
@@ -13,6 +12,7 @@ import {
   ScaleIcon,
   ShieldCheckIcon,
   SparklesIcon,
+  TwitterIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { FEATURES } from "@/lib/features";
@@ -146,7 +146,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-fd-muted-foreground hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                 >
-                  <BirdIcon className="w-4 h-4" />X / Twitter
+                  <TwitterIcon className="w-4 h-4" />X / Twitter
                 </a>
               </li>
               <li>

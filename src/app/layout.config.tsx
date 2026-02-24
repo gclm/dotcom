@@ -19,20 +19,16 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      text: "Docs",
+      text: "Documentation",
       url: "/docs",
-    },
-    {
-      text: "Pricing",
-      url: "/pricing",
     },
     {
       text: "Changelog",
       url: "/changelog",
     },
     {
-      text: "Scratchpad",
-      url: "/scratchpad",
+      text: "Features",
+      url: "/features",
     },
   ],
   githubUrl: "https://github.com/usememos/memos",

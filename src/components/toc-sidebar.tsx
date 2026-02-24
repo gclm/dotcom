@@ -25,14 +25,16 @@ export function TOCSidebar({ toc }: TOCSidebarProps) {
           }
         });
       },
-      { rootMargin: "0% 0% -80% 0%" }
+      { rootMargin: "0% 0% -80% 0%" },
     );
 
     // Observe all headings
-    const headings = toc.map((item) => {
-      const id = item.url.slice(1); // Remove # from url
-      return document.getElementById(id);
-    }).filter(Boolean);
+    const headings = toc
+      .map((item) => {
+        const id = item.url.slice(1); // Remove # from url
+        return document.getElementById(id);
+      })
+      .filter(Boolean);
 
     headings.forEach((heading) => {
       if (heading) observer.observe(heading);

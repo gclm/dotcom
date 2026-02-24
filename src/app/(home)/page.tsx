@@ -1,5 +1,6 @@
 import {
   ArrowRightIcon,
+  BirdIcon,
   BookOpenIcon,
   CheckIcon,
   CodeIcon,
@@ -11,7 +12,7 @@ import {
   NotebookIcon,
   PackageIcon,
   PenToolIcon,
-  Rocket,
+  RocketIcon,
   ServerIcon,
   ShieldCheckIcon,
   ShieldIcon,
@@ -289,7 +290,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 sm:mb-12 lg:mb-16">
             <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 text-teal-600 dark:text-teal-400 rounded-2xl mb-6">
-              <Rocket className="w-7 h-7 sm:w-8 sm:h-8" />
+              <RocketIcon className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-4 leading-tight">
               Running in Under 5 Minutes
@@ -408,7 +409,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 lg:py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-teal-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 text-teal-600 dark:text-teal-400 rounded-2xl mb-6">
-            <Rocket className="w-7 h-7 sm:w-8 sm:h-8" />
+            <BirdIcon className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-4 sm:mb-6 leading-tight px-2">
             Ready to Get Started?
