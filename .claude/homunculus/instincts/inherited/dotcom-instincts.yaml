@@ -1,0 +1,452 @@
+# Instincts generated from https://github.com/gclm/dotcom
+# Generated: 2026-06-01T01:17:34.698Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: dotcom-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, chore, fix, refactor, perf
+
+## Evidence
+
+- 9 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat: add Cloudflare Workers deployment, chore: upgrade dependencies and polish indexes
+
+---
+id: dotcom-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Commit Length
+
+## Action
+
+Keep commit messages concise (~45 characters)
+
+## Evidence
+
+- Average commit message length: 45 chars
+- Based on 9 commits
+
+---
+id: dotcom-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: dotcom-import-alias
+trigger: "when importing modules"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Import Alias
+
+## Action
+
+Use path aliases (@/, ~/) instead of relative imports
+
+## Evidence
+
+- Import analysis shows alias pattern
+- Example: import { x } from '@/lib/x'
+
+---
+id: dotcom-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: dotcom-arch-feature-based
+trigger: "when adding a new feature"
+confidence: 0.85
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Arch Feature Based
+
+## Action
+
+Create a new folder in src/features/ with all related code colocated
+
+## Evidence
+
+- Feature-based module organization detected
+- Structure: src/features/[feature-name]/
+
+---
+id: dotcom-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: dotcom-workflow-feature-development-with-specs-and-plans
+trigger: "when doing feature development with specs and plans"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Workflow Feature Development With Specs And Plans
+
+## Action
+
+Follow the feature-development-with-specs-and-plans workflow:
+1. Create or update docs/superpowers/plans/{date}-{feature}.md with a plan.
+2. Create or update docs/superpowers/specs/{date}-{feature}-design.md with a design/spec.
+3. Modify or add relevant source files under src/ to implement the feature.
+4. Update configuration or supporting files as needed (e.g., package.json, wrangler.jsonc, .gitignore).
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: docs/superpowers/plans/*.md, docs/superpowers/specs/*-design.md, src/**
+
+---
+id: dotcom-workflow-dependency-upgrade-and-editorial-index-polish
+trigger: "when doing dependency upgrade and editorial index polish"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Workflow Dependency Upgrade And Editorial Index Polish
+
+## Action
+
+Follow the dependency-upgrade-and-editorial-index-polish workflow:
+1. Update package.json and pnpm-lock.yaml.
+2. Modify editorial or index-related components under src/components/ or similar.
+3. Document the changes in docs/superpowers/plans/ and docs/superpowers/specs/.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: package.json, pnpm-lock.yaml, src/components/editorial-index.tsx
+
+---
+id: dotcom-workflow-documentation-consolidation-or-update
+trigger: "when doing documentation consolidation or update"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/gclm/dotcom
+---
+
+# Dotcom Workflow Documentation Consolidation Or Update
+
+## Action
+
+Follow the documentation-consolidation-or-update workflow:
+1. Edit or merge relevant markdown documentation files (e.g., AGENTS.md, CLAUDE.md).
+2. Remove or update outdated instructions.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: AGENTS.md, CLAUDE.md
+
+---
+id: dotcom-instinct-file-naming-camelCase
+trigger: "When creating or renaming a file in the codebase"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct File Naming CamelCase
+
+## Action
+
+Name the file using camelCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+- Consistent file naming in src/
+
+---
+id: dotcom-instinct-function-naming-camelCase
+trigger: "When defining a new function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Function Naming CamelCase
+
+## Action
+
+Name the function using camelCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: dotcom-instinct-class-naming-PascalCase
+trigger: "When defining a new class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Class Naming PascalCase
+
+## Action
+
+Name the class using PascalCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: dotcom-instinct-constant-naming-SCREAMING_SNAKE_CASE
+trigger: "When declaring a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Constant Naming SCREAMING_SNAKE_CASE
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: dotcom-instinct-import-alias-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Import Alias Style
+
+## Action
+
+Use alias import style as per project configuration
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: dotcom-instinct-mixed-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Mixed Export Style
+
+## Action
+
+Use mixed export style (both named and default exports as appropriate)
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: dotcom-instinct-test-location-separate
+trigger: "When adding new test files"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Test Location Separate
+
+## Action
+
+Place test files in a separate location outside the main src/ structure
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: dotcom-instinct-commit-conventional-format
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Commit Conventional Format
+
+## Action
+
+Use conventional commit format with prefixes like feat, fix, chore, refactor, perf, docs
+
+## Evidence
+
+- Pattern in commits.prefixes
+- Examples: 'feat: add Cloudflare Workers deployment', 'fix: keep Carbon placements on content pages'
+
+---
+id: dotcom-instinct-commit-length-45
+trigger: "When writing a commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Commit Length 45
+
+## Action
+
+Keep the commit message around 45 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength
+
+---
+id: dotcom-instinct-feature-development-with-specs-and-plans
+trigger: "When adding a new feature or major capability"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Feature Development With Specs And Plans
+
+## Action
+
+Create or update a plan in docs/superpowers/plans/, a design/spec in docs/superpowers/specs/, implement in src/, and update configs as needed
+
+## Evidence
+
+- Workflow: feature-development-with-specs-and-plans
+- Commit sequences and files involved
+
+---
+id: dotcom-instinct-dependency-upgrade-and-editorial-index-polish
+trigger: "When upgrading dependencies or improving editorial/index UI"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Dependency Upgrade And Editorial Index Polish
+
+## Action
+
+Update package.json and pnpm-lock.yaml, modify editorial/index components, and document changes in docs/superpowers/plans/ and specs/
+
+## Evidence
+
+- Workflow: dependency-upgrade-and-editorial-index-polish
+- Commit sequences and files involved
+
+---
+id: dotcom-instinct-documentation-consolidation-or-update
+trigger: "When updating or merging documentation for agents or features"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: gclm/dotcom
+---
+
+# Dotcom Instinct Documentation Consolidation Or Update
+
+## Action
+
+Edit or merge AGENTS.md and CLAUDE.md, removing or updating outdated instructions
+
+## Evidence
+
+- Workflow: documentation-consolidation-or-update
+- Commit sequences and files involved
+
