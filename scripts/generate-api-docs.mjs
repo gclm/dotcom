@@ -20,7 +20,9 @@ const SERVICE_ENTRY_PAGES = {
   identityproviderservice: "CreateIdentityProvider",
   instanceservice: "GetInstanceProfile",
   memoservice: "CreateMemo",
+  memoviewservice: "CreateMemoView",
   shortcutservice: "CreateShortcut",
+  spaceservice: "CreateSpace",
   userservice: "CreateUser",
 };
 
@@ -32,7 +34,9 @@ const SERVICE_TITLES = {
   identityproviderservice: "Identity Provider Service",
   instanceservice: "Instance Service",
   memoservice: "Memo Service",
+  memoviewservice: "Memo View Service",
   shortcutservice: "Shortcut Service",
+  spaceservice: "Space Service",
   userservice: "User Service",
 };
 
