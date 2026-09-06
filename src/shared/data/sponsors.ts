@@ -11,15 +11,15 @@ export const FEATURED_SPONSORS: Sponsor[] = [
   {
     name: "CodeRabbit",
     url: "https://coderabbit.link/usememos",
-    logo: "https://victorious-bubble-f69a016683.media.strapiapp.com/Orange_Typemark_43bf516c9d.svg",
-    logoDark: "https://victorious-bubble-f69a016683.media.strapiapp.com/White_Typemark_79b9189d19.svg",
+    logo: "https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/sponsors/coderabbit/orange-typemark.svg",
+    logoDark: "https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/sponsors/coderabbit/white-typemark.svg",
     description: "Cut code review time & bugs in half, instantly.",
   },
   {
     name: "SSD Nodes",
     url: "https://www.ssdnodes.com/?utm_source=memos&utm_medium=sponsor",
-    logo: "/sponsors/ssd-nodes.svg",
-    logoDark: "/sponsors/ssd-nodes.svg",
+    logo: "https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/sponsors/ssd-nodes.svg",
+    logoDark: "https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/sponsors/ssd-nodes.svg",
     description: "Affordable VPS hosting for self-hosters.",
   },
   {
