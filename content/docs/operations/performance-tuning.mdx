@@ -17,6 +17,8 @@ Memos maintains an in-memory cache for frequently accessed data. The cache runs 
 
 Cache entries are invalidated immediately on write operations and automatically expired after their TTL.
 
+The database-backed `ACCESS` setting bypasses the ordinary settings cache so another replica observes an access-policy change on its next policy check. Deployment-file overrides remain fixed until that process restarts.
+
 ## SQLite tuning
 
 Memos applies these SQLite pragmas by default:
@@ -42,6 +44,12 @@ SQLite limitations to keep in mind:
 | Concurrent readers | Unlimited |
 | Practical DB size | Up to ~100 GB |
 | When to migrate | High concurrent writes or multi-server write patterns |
+
+## Live updates and write contention
+
+In 0.31, browser tabs coordinate one SSE connection through a visible tab instead of opening redundant streams. Keep reverse proxies compatible with long-lived event streams and avoid response buffering on the SSE route.
+
+SQLite memo mutations begin with `BEGIN IMMEDIATE`, allowing concurrent writers to wait for the write lock earlier in the transaction. Writes are still serialized; this reduces intermittent `SQLITE_BUSY` failures without making SQLite a multi-writer database.
 
 ## First-order decisions
 

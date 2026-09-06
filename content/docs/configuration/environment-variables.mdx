@@ -17,9 +17,10 @@ All flags and their corresponding environment variables:
 | `--data` | `MEMOS_DATA` | auto | Data directory |
 | `--driver` | `MEMOS_DRIVER` | `sqlite` | Database backend (`sqlite`, `mysql`, `postgres`) |
 | `--dsn` | `MEMOS_DSN` | auto | Database connection string |
-| `--instance-url` | `MEMOS_INSTANCE_URL` | `` | Public instance URL; empty enables private mode |
+| `--instance-url` | `MEMOS_INSTANCE_URL` | `` | Canonical external URL; independent of access policy |
 | `--demo` | `MEMOS_DEMO` | `false` | Demo mode |
-| `--allow-private-webhooks` | `MEMOS_ALLOW_PRIVATE_WEBHOOKS` | `false` | Allow webhook URLs that resolve to private or reserved IP ranges |
+| `--webhook-private-network-allowlist` | `MEMOS_WEBHOOK_PRIVATE_NETWORK_ALLOWLIST` | empty | Allowed private destinations: exact hostnames, IP addresses, or CIDRs |
+| `--allow-private-webhooks` | `MEMOS_ALLOW_PRIVATE_WEBHOOKS` | `false` | Deprecated blanket exception for private webhook destinations |
 | `--log-level` | `MEMOS_LOG_LEVEL` | `info` | Log verbosity (`debug`, `info`, `warn`, `error`) |
 
 ### Data directory defaults
@@ -36,9 +37,16 @@ When `MEMOS_DRIVER=sqlite` and `MEMOS_DSN` is empty, the database file defaults 
 
 ### Public and private mode
 
-Since Memos 0.30, an empty `MEMOS_INSTANCE_URL` puts the instance in **private mode**. Anonymous visitors are redirected to sign-in, RSS is unavailable, and anonymous API access is limited to setup, authentication, registration when allowed, and shared-memo routes.
+In Memos 0.31, access is controlled by the `ACCESS` instance setting, through `accessSetting.accessMode`:
 
-Set `MEMOS_INSTANCE_URL` to the canonical external URL when you intentionally want public profiles, public memos, Explore, RSS, and other anonymous reads. The value must include the scheme, for example `https://memos.example.com`.
+- `INSTANCE_ACCESS_MODE_PRIVATE`: anonymous visitors are sent to sign-in; anonymous API access is limited to endpoints such as setup, authentication, registration when allowed, and explicit shared memos.
+- `INSTANCE_ACCESS_MODE_PUBLIC`: eligible public memos, profiles, and Explore can be read anonymously.
+
+Configure access in instance settings or with a [deployment-managed JSON file](/docs/configuration/deployment-configuration#access-policy). It is not a runtime flag or environment variable.
+
+`MEMOS_INSTANCE_URL` supplies the canonical external address, including for a private instance behind a proxy. It must be an absolute HTTP(S) URL without credentials, a query, or a fragment, such as `https://memos.example.com`.
+
+When the access setting is first initialized, Memos preserves the earlier behavior: a configured URL initializes public access; an empty URL initializes private access. Once the setting exists, changing the URL never changes the access policy. See [Upgrading to 0.31](/docs/operations/upgrade#upgrading-to-031).
 
 ## Priority order
 
@@ -50,10 +58,10 @@ An explicit flag always wins over the environment variable for the same setting.
 
 ## Practical guidance
 
-- leave `MEMOS_INSTANCE_URL` empty for a private-only instance
-- set it to the canonical public URL when you want anonymous public access or when the app sits behind a proxy
+- select private or public access explicitly in the `ACCESS` instance setting
+- set `MEMOS_INSTANCE_URL` to the canonical external URL when the app sits behind a proxy
 - prefer explicit `MEMOS_DRIVER` and `MEMOS_DSN` when you are not using SQLite defaults
-- leave `MEMOS_ALLOW_PRIVATE_WEBHOOKS` disabled unless your webhook targets intentionally live on a trusted private network
+- allow only required private webhook destinations with `MEMOS_WEBHOOK_PRIVATE_NETWORK_ALLOWLIST`; leave the deprecated blanket option disabled
 - keep secrets such as database credentials outside committed compose files
 - treat these values as part of deployment config and back them up accordingly
 

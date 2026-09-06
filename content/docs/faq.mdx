@@ -29,4 +29,4 @@ SQLite is a strong default for a single-instance deployment. Use MySQL or Postgr
 
 ## Can I disable public memos?
 
-Yes. Leave `MEMOS_INSTANCE_URL` empty to run Memos in private mode, where anonymous visitors are redirected to sign-in and public discovery surfaces are disabled. You can also disable `PUBLIC` memo visibility in instance settings.
+Yes. Select private access in instance settings to require sign-in for ordinary memo pages and disable anonymous public discovery. In 0.31, access policy is independent of `MEMOS_INSTANCE_URL`. You can also disable `PUBLIC` memo visibility in instance settings. Explicit share links still grant access to their selected memo until revoked or expired. See [Sharing](/docs/usage/sharing).

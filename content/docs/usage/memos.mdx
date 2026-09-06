@@ -7,12 +7,20 @@ Memos are the central unit of content in the product. A good memo practice keeps
 
 ## Core actions
 
-- create a memo from the editor on the home page
+- create a memo from the global composer on any authenticated route
 - edit content inline
 - link related memos with Relations
 - pin important memos
 - set visibility before sharing
 - archive memos that are no longer active
+
+## Navigation and creation
+
+The resizable sidebar contains the calendar, Saved Views, tags, Quick Find, and navigation for the current route. Open the global composer from the sidebar to write without returning to Home.
+
+Selecting a Space scopes browsing and memo creation to that Space. Check placement and visibility before saving; assigning a memo does not change its audience. Existing memos remain Unassigned after upgrading. See [Spaces](/docs/usage/spaces) for scope and membership rules.
+
+Only the author can edit a memo. Editing an assigned memo also requires active membership in its Space; instance and Space admins do not gain editing rights to another author's content.
 
 ## What the editor supports
 
@@ -32,7 +40,7 @@ Memos are the central unit of content in the product. A good memo practice keeps
 
 Choose one, two, three, or automatic columns in your display preferences.
 Compact mode and link previews are configurable there too, and the choices are
-saved for your account. The single-column layout shows full memo content by
+saved for your account. Link previews discover metadata from oEmbed, Open Graph, Twitter Cards, JSON-LD, and ordinary HTML when the linked site supplies it. Sites without usable metadata may still appear as plain links. The single-column layout shows full memo content by
 default; multi-column and compact layouts favor faster scanning.
 
 New memos appear above the pinned section. When you return from a memo detail
@@ -56,6 +64,7 @@ Memos automatically computes properties from memo content. These can be used in 
 | `has_code` | Contains code blocks or inline code |
 | `has_task_list` | Contains at least one task list item |
 | `has_incomplete_tasks` | Contains unchecked `- [ ]` task items |
+| `has_location` | Has location data attached |
 
 ## Linking memos with Relations
 
@@ -67,7 +76,8 @@ A Relation does not grant access to either memo. Each side keeps its own visibil
 
 ## Useful memo metadata
 
-- visibility: `PRIVATE`, `PROTECTED`, or `PUBLIC`
+- placement: Unassigned or exactly one [Space](/docs/usage/spaces)
+- visibility: `PRIVATE`, `PROTECTED`, `PUBLIC`, or `SPACE`
 - tags extracted from inline hashtags
 - attachments such as screenshots and documents
 - checklist items for lightweight task tracking

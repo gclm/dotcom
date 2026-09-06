@@ -11,6 +11,20 @@ Attachments let you keep files close to the notes they belong to. This is useful
 - use the upload control in the toolbar
 - paste screenshots directly from the clipboard when supported
 
+## Inline images and drafts
+
+Images can be inserted at the cursor through upload, paste, drag and drop, or selection from existing attachments. They become Markdown images in the memo body. Other files remain attachments you can open from the memo.
+
+Failed inline uploads can be retried. Returning to an unfinished draft restores its inline upload state so you can continue composing. Confirm uploads have completed before publishing, and keep the local draft until the memo is saved.
+
+Removing an image from the Markdown body does not by itself prove the file is unused: attachment binding and inline references are separate. Use the attachment library's unused status when cleaning up.
+
+## Optional media metadata
+
+Enable **Save media metadata** in your preferences to preserve normalized details from future uploads. This is off by default. Depending on the file, details can include dimensions, camera information, capture time, location, and video duration. Inspect available details in the attachment viewer.
+
+The preference applies to future uploads; it does not backfill existing files. Location and capture details can reveal where and when media was recorded, so inspect them before sharing. Disabling metadata extraction is not a promise that embedded metadata has been stripped from the original file.
+
 ## Common attachment types
 
 - images and screenshots
@@ -30,7 +44,7 @@ This is useful for voice notes and recorded snippets you want to search later as
 
 ## The attachment library
 
-The Attachments page is a library of every file you've uploaded, separate from the memos they live in. Open it to browse, preview, and manage your files in one place.
+The Attachments page lets you browse, preview, and manage your uploads. Its results follow the selected Space. Switch to the main Memos context to browse across your available attachments.
 
 - files are grouped into **Media**, **Audio**, and **Documents** tabs, each with a live count
 - media is shown as a grid grouped by month; images, videos, and motion photos open in a full-screen lightbox
@@ -42,7 +56,7 @@ There is no upload control here — attachments are added from the memo editor. 
 
 ## Cleaning up unused attachments
 
-An attachment becomes **unused** when it isn't linked to any memo — for example, if you uploaded a file but deleted the memo, or removed the file from a memo's body.
+An attachment is **unused** when it is not bound to any memo, such as an upload you never attached to a saved memo. Deleting a memo removes its owned attachment resources; removing only an inline image reference does not necessarily remove the attachment binding.
 
 When you have unused attachments, the library shows an expandable **Unused** panel listing them. From there you can **Delete all unused** in one action (with a confirmation step) to reclaim storage.
 
@@ -55,6 +69,12 @@ Attachments depend on the storage backend chosen for the instance:
 - database storage keeps everything together
 - local filesystem storage keeps files on the host or volume
 - S3-compatible storage separates files from the app host
+
+## Access to managed files
+
+Managed files follow the memo's access rules. Memos serves S3-backed attachments through its authenticated file route, including range requests for media playback. A shared memo supplies authorized attachment URLs; preserve their share tokens when copying or rendering thumbnails.
+
+API clients must bind a managed image to the memo before or during the mutation that references it in Markdown. Do not use a presigned S3 object URL from `externalLink`; managed S3 attachments no longer expose one there. See [API Access](/docs/integrations/api-access#031-client-migration).
 
 ## Operational guidance
 

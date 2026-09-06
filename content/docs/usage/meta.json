@@ -4,10 +4,11 @@
   "pages": [
     "index",
     "memos",
+    "spaces",
     "attachments",
     "writing-markdown",
     "tags",
-    "shortcuts",
+    "saved-views",
     "sharing",
     "reactions-comments",
     "inbox",

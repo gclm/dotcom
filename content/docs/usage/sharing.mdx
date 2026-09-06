@@ -7,24 +7,29 @@ Sharing in Memos has two layers: **visibility**, which decides who can reach a m
 
 ## Visibility levels
 
-Every memo has one of three visibility levels, set from the editor before or after posting:
+Every memo has one of four visibility levels, set from the editor before or after posting:
 
 - `PRIVATE`: only you can read the memo
 - `PROTECTED`: any signed-in user on the instance can read it
 - `PUBLIC`: anonymous visitors can read it when the instance is in public mode
+- `SPACE`: active members of the memo's assigned Space can read it
 
-Public mode is enabled by setting `MEMOS_INSTANCE_URL`. In that mode, public memos also appear in the instance-wide **Explore** feed and on your public profile, so they are discoverable beyond the direct URL. When the instance URL is empty, the server runs in private mode and `PUBLIC` memos still require sign-in.
+The `ACCESS` instance setting controls public or private access independently of `MEMOS_INSTANCE_URL`. With public access enabled, public memos can be discovered through Explore and public profiles. In private mode, ordinary `PUBLIC` memo pages require sign-in.
+
+Placement and visibility are independent. Putting a memo in a Space does not change its audience: an assigned `PRIVATE` memo stays author-only, and an assigned `PROTECTED` memo remains readable by other signed-in users. `SPACE` visibility requires a Space assignment. See [Spaces](/docs/usage/spaces).
 
 ## Share links
 
 Open a memo's detail page and use the **Share** section in the sidebar to create a public link for that single memo:
 
 - **Open share panel** — create, list, and revoke share links. Each link can be set to expire **never, after 1 day, 7 days, or 30 days**.
-- A share link resolves without sign-in, even for memos that are not `PUBLIC`, and signs attachment URLs so images and files load for anonymous viewers.
+- A share link resolves without sign-in, including for `PRIVATE` and `PROTECTED` memos, and signs attachment URLs so images and files load for anonymous viewers.
 - The token exposes only the selected memo, its attachments, and its reactions. It does not expose the surrounding parent memo, comments, or relation graph.
 - Revoke a link at any time to immediately stop access.
 
-Share-link management is available to the memo's owner (and admins), and only on top-level memos — not on comments.
+Only the memo's author can manage its share links; assigned memos also require active Space membership. The API can share a comment independently, exposing that comment alone rather than the parent or discussion.
+
+`SPACE` memos cannot have share links. Revoke active links before changing a memo's visibility to `SPACE`. An existing share link is a separate grant of access, so switching the instance to private mode does not revoke it.
 
 ## Share as image
 

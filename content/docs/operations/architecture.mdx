@@ -9,7 +9,7 @@ At a high level, Memos is a lightweight web application with a frontend UI, an A
 
 | Layer | Technology |
 | --- | --- |
-| Backend language | Go 1.26.2+ |
+| Backend language | Go 1.27+ |
 | HTTP router | Echo v5 |
 | API protocol | gRPC + Connect RPC (dual) |
 | Schema | Protocol Buffers v2 |
@@ -59,6 +59,8 @@ The store layer maintains an in-memory cache for hot data:
 | User settings | `user_id-setting_key` | 10 min |
 
 Cache entries are evicted on write operations and after their TTL expires.
+
+The database-backed `ACCESS` setting bypasses the ordinary settings cache so another replica observes an access-policy change on its next policy check. Deployment-file overrides remain fixed until that process restarts.
 
 ## Why the architecture matters
 

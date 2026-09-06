@@ -35,6 +35,10 @@ Password auth is usually the right starting point when:
 
 Users sign in with their Memos username and password. Archived users cannot sign in. Failed sign-in attempts use the same error message for unknown usernames and wrong passwords, so the login page does not reveal whether a username exists.
 
+### Username spelling
+
+In 0.31, sign-in and lookup use exact-case usernames. `Alice` and `alice` are distinct spellings. New or renamed usernames must contain 1–36 ASCII letters or digits, with hyphens only inside the name. Existing legacy names remain addressable, but unsupported spellings cannot be used for new mentions. When diagnosing a failed sign-in after upgrading, check the stored username and its case before resetting credentials.
+
 ### Disable password authentication
 
 Admins can disable password sign-in for regular users after SSO is configured. When password auth is disabled:

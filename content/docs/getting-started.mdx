@@ -26,7 +26,7 @@ What this gives you:
 - SQLite by default
 - one container that is easy to inspect and replace
 
-Because the command does not set `MEMOS_INSTANCE_URL`, Memos starts in private mode: anonymous visitors are sent to sign-in and public discovery surfaces such as Explore and RSS stay unavailable. This is a safe default for a local or personal instance.
+On a fresh instance, this command initializes private access: ordinary memo pages require sign-in and anonymous Explore is unavailable. In 0.31, the saved `ACCESS` instance setting controls this policy independently of the canonical URL. The `stable` image follows stable releases; to try the release candidate explicitly, use `neosmemo/memos:0.31.0-rc.1`.
 
 If you want a checked-in deployment file, use [Docker Compose](/docs/deploy/docker-compose). If you need a custom or pinned build, use [Build From Source](/docs/deploy/development). Contributors should start with [Development](/docs/development).
 
@@ -50,13 +50,13 @@ The first user becomes the host admin and can configure registration, authentica
 Recommended first actions:
 
 - use a strong password
-- decide whether to keep private mode or set the canonical instance URL to enable anonymous public access
+- choose private or public access in instance settings; configure the canonical instance URL separately
 - decide whether user registration should remain disabled or be opened later
 - decide whether public memos should be allowed at all
 
 ## 4. Create your first memo
 
-Use the editor at the top of the home page and try a memo that exercises the main features:
+Open the global composer from the sidebar. You can create a memo from any authenticated route. Check the selected Space and visibility, then try a memo that exercises the main features:
 
 ````markdown
 # Welcome to Memos
@@ -78,7 +78,7 @@ console.log("hello from memos");
 
 Useful things to try immediately:
 
-- set memo visibility to `PRIVATE`, `PROTECTED`, or `PUBLIC`
+- choose `PRIVATE`, `PROTECTED`, `PUBLIC`, or `SPACE` visibility; `SPACE` requires an assigned Space
 - add a checklist with `- [ ]`
 - upload a screenshot or document
 - create tags inline with `#tagname`
@@ -86,13 +86,14 @@ Useful things to try immediately:
 
 ## 5. Understand visibility
 
-Each memo uses one of three visibility levels:
+Each memo uses one of four visibility levels:
 
 - `PRIVATE`: only you can read it
 - `PROTECTED`: authenticated users on the instance can read it
-- `PUBLIC`: anonymous visitors can read it when the instance URL is configured and public mode is enabled
+- `PUBLIC`: anonymous visitors can read it when public instance access is enabled
+- `SPACE`: active members of the memo's assigned Space can read it
 
-In private mode, `PUBLIC` memos still require sign-in. Explicit share links remain accessible without sign-in and should be treated as bearer credentials.
+In private mode, ordinary `PUBLIC` memo pages still require sign-in. Explicit share links remain accessible without sign-in until revoked or expired. `SPACE` memos cannot have share links. Placement and visibility are independent; see [Spaces](/docs/usage/spaces).
 
 ## 6. Explore the core workflows
 
@@ -100,7 +101,8 @@ After the first memo, the next high-value workflows are:
 
 - [Writing Markdown](/docs/usage/writing-markdown)
 - [Tags](/docs/usage/tags)
-- [Shortcuts](/docs/usage/shortcuts)
+- [Spaces](/docs/usage/spaces)
+- [Saved Views](/docs/usage/saved-views)
 - [Sharing](/docs/usage/sharing)
 - [Attachments](/docs/usage/attachments)
 
@@ -108,4 +110,5 @@ After the first memo, the next high-value workflows are:
 
 - If `http://localhost:5230` does not load, check `docker logs memos`.
 - If the data directory is not writable, verify permissions on `~/.memos`.
-- If you want anonymous public profiles, Explore, or RSS—or run behind a reverse proxy—set `MEMOS_INSTANCE_URL` to the canonical public URL.
+- For anonymous public profiles and Explore, enable public access in instance settings. For a reverse proxy, set `MEMOS_INSTANCE_URL` to the canonical HTTP(S) URL independently of that policy.
+- For version-specific changes, read [Upgrading to 0.31](/docs/operations/upgrade#upgrading-to-031).

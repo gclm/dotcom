@@ -11,13 +11,20 @@ Use search to narrow memos by:
 - tags
 - visibility
 - time range
-- richer saved filters and shortcuts
+- whether location data is present
+- richer saved filters and saved views
 
 Search works best when you keep memo titles, headings, and tags consistent.
 
+## Quick Find and browsing scope
+
+Open Quick Find with the sidebar search action. The global Cmd/Ctrl+K shortcut was removed in 0.31.
+
+Home and Explore filters follow the selected Space. [Saved Views](/docs/usage/saved-views) reuse CEL expressions, including `has_location`, `space == null` for Unassigned memos, and `visibility == "SPACE"` for members-only memos.
+
 ## Archive
 
-Archived memos are kept but hidden from the main timeline. Use archiving when a memo is still worth keeping but no longer belongs in active daily views.
+Archived is global across Spaces. Archived memos are kept but hidden from the main timeline. Use archiving when a memo is still worth keeping but no longer belongs in active daily views.
 
 Typical archive routine:
 
@@ -27,7 +34,7 @@ Typical archive routine:
 
 ## Public sharing and discovery
 
-Search and visibility work together. When `MEMOS_INSTANCE_URL` enables public mode, public memos are discoverable more broadly than private ones. Review content carefully before publishing and use `PRIVATE` or `PROTECTED` when the memo is not meant for open access.
+Search only returns memos you can read. The instance access policy determines whether anonymous visitors can discover `PUBLIC` memos; the canonical instance URL does not control that policy. Use `PRIVATE` for author-only notes, `SPACE` for members of the assigned Space, or `PROTECTED` for signed-in instance users. See [Sharing](/docs/usage/sharing).
 
 ## Related guides
 

@@ -1,11 +1,11 @@
 ---
 title: Deployment-Managed Configuration
-description: Manage authentication, storage, notifications, memo behavior, and AI settings from mounted JSON files.
+description: Manage access, authentication, storage, notifications, memo behavior, and AI settings from mounted JSON files.
 category: configuration
 tags: ["configuration", "self-hosting", "docker", "kubernetes"]
 difficulty: advanced
 estimatedTime: 15 minutes
-lastUpdated: "2026-07-22"
+lastUpdated: "2026-09-06"
 ---
 
 Memos 0.30 and later can load selected configuration from JSON files mounted under `/etc/secrets`. Use this when settings such as SSO, storage credentials, or registration policy should be controlled by Docker Compose, Kubernetes, GitOps, or a secret manager instead of the admin UI.
@@ -74,6 +74,7 @@ Memos scans direct children of `/etc/secrets` and reads only these filename patt
 | Resource | Filename | Stable key |
 | --- | --- | --- |
 | OAuth2 identity provider | `memos-idp-<label>.json` | `uid` |
+| Access policy (0.31+) | `memos-instance-setting-access.json` | `ACCESS` |
 | General settings | `memos-instance-setting-general.json` | `GENERAL` |
 | Storage settings | `memos-instance-setting-storage.json` | `STORAGE` |
 | Memo behavior | `memos-instance-setting-memo-related.json` | `MEMO_RELATED` |
@@ -136,6 +137,25 @@ See [Authentication](/docs/configuration/authentication) for provider setup and 
 
 Each instance-setting file contains a `key` and the matching settings object. A file supplies the complete effective group: omitted scalar fields use their default values instead of inheriting values from the database. Empty secret fields are also treated as empty values.
 
+### Access policy
+
+In 0.31, use `memos-instance-setting-access.json` to select access independently of the canonical instance URL:
+
+```json
+{
+  "key": "ACCESS",
+  "accessSetting": {
+    "accessMode": "INSTANCE_ACCESS_MODE_PRIVATE"
+  }
+}
+```
+
+Use `INSTANCE_ACCESS_MODE_PUBLIC` to allow eligible anonymous public reads. The mode must be explicit; an omitted or unspecified mode is rejected. This setting does not revoke existing share links.
+
+Set `MEMOS_INSTANCE_URL` separately to the canonical external HTTP(S) URL. Credentials, queries, and fragments are not allowed. A private instance can have a canonical URL behind a reverse proxy.
+
+The first upgraded startup initializes a missing database access setting from the old URL-based behavior. Later URL changes do not change access. Upgrade every replica before changing the policy; older binaries still infer public access from the URL. See [Upgrading to 0.31](/docs/operations/upgrade#upgrading-to-031).
+
 ### General
 
 Use `memos-instance-setting-general.json` with `key: "GENERAL"`. The complete format is shown in the [Docker Compose quick start](#quick-start-with-docker-compose).
@@ -144,27 +164,36 @@ Use `memos-instance-setting-general.json` with `key: "GENERAL"`. The complete fo
 
 ### Storage
 
-Storage types are `DATABASE`, `LOCAL`, and `S3`. S3 requires all credential and location fields shown below.
+For 0.31, use named entries in `storages` and select one with `defaultStorageId`. Types are `DATABASE`, `LOCAL`, and `S3`. Each entry has a stable ID; existing attachments continue to use the configuration identified at upload time.
 
 ```json
 {
   "key": "STORAGE",
   "storageSetting": {
-    "storageType": "S3",
     "filepathTemplate": "assets/{timestamp}_{uuid}_{filename}",
     "uploadSizeLimitMb": "30",
-    "s3Config": {
-      "accessKeyId": "access-key",
-      "accessKeySecret": "secret-key",
-      "endpoint": "https://s3.example.com",
-      "region": "us-east-1",
-      "bucket": "memos-assets",
-      "usePathStyle": false,
-      "insecureSkipTlsVerify": false
-    }
+    "defaultStorageId": "team-assets",
+    "storages": [
+      {
+        "id": "team-assets",
+        "name": "Team assets",
+        "type": "S3",
+        "s3Config": {
+          "accessKeyId": "access-key",
+          "accessKeySecret": "secret-key",
+          "endpoint": "https://s3.example.com",
+          "region": "us-east-1",
+          "bucket": "memos-assets",
+          "usePathStyle": false,
+          "insecureSkipTlsVerify": false
+        }
+      }
+    ]
   }
 }
 ```
+
+Keep every configuration referenced by existing attachments when replacing this complete settings group. Changing the default affects new uploads only. Legacy `storageType` and top-level `s3Config` remain supported for compatibility, but new configurations should use the named format. This example requires 0.31; pin the candidate image to `neosmemo/memos:0.31.0-rc.1` when testing it before the stable release.
 
 Only enable `insecureSkipTlsVerify` for a trusted S3-compatible endpoint using a self-signed certificate. It disables TLS certificate verification.
 

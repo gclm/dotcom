@@ -1,16 +1,16 @@
 ---
 title: "GTD"
-description: Set up GTD in Memos with quick capture, Markdown next actions, project tags, Shortcuts, waiting items, daily focus, and a weekly review.
+description: Set up GTD in Memos with quick capture, Markdown next actions, project tags, Saved Views, waiting items, daily focus, and a weekly review.
 category: guides
 tags: ["gtd", "personal-organization", "practice"]
 difficulty: beginner
 estimatedTime: 10 minutes
-relatedPages: ["/docs/usage/memos", "/docs/usage/tags", "/docs/usage/shortcuts", "/docs/usage/search-archive"]
+relatedPages: ["/docs/usage/memos", "/docs/usage/tags", "/docs/usage/saved-views", "/docs/usage/search-archive"]
 ---
 
-[Getting Things Done](https://gettingthingsdone.com/what-is-gtd/) is most reliable when capture is fast, next actions are visible, and every project has a clear place to resume. Memos gives that practice a lightweight, self-hosted foundation: quick notes for capture, Markdown checkboxes for actions, tags for project context, Shortcuts for reusable views, and a searchable timeline that keeps the history.
+[Getting Things Done](https://gettingthingsdone.com/what-is-gtd/) is most reliable when capture is fast, next actions are visible, and every project has a clear place to resume. Memos gives that practice a lightweight, self-hosted foundation: quick notes for capture, Markdown checkboxes for actions, tags for project context, Saved Views for reusable filters, and a searchable timeline that keeps the history.
 
-This guide keeps the setup focused: one memo per commitment, one state tag for what happens next, and one project tag for related actions. Shortcuts keep next actions, waiting items, and active projects visible; checkboxes and Archive close the loop without discarding the record.
+This guide keeps the setup focused: one memo per commitment, one state tag for what happens next, and one project tag for related actions. Saved Views keep next actions, waiting items, and active projects visible; checkboxes and Archive close the loop without discarding the record.
 
 ## Give every memo one clear GTD role
 
@@ -27,7 +27,7 @@ Use exactly one of those four states on a GTD memo. An item cannot need clarific
 
 There is no `#gtd/done` tag. A checked box already records completion, and Archive removes it from active surfaces. There is no `#gtd/reference` tag either. Reference is the rest of the searchable timeline: give useful material a topic or project tag, then archive it when it no longer needs to stay visible.
 
-Keep system tags on the final line so the content remains easy to read. Memos recognizes [tags anywhere in a memo](/docs/usage/tags), but a consistent metadata line makes state changes obvious.
+Keep system tags on the final line so the content remains easy to read. Memos recognizes [tags in ordinary Markdown text](/docs/usage/tags), but a consistent metadata line makes state changes obvious.
 
 ## Capture and clarify one commitment per memo
 
@@ -94,11 +94,11 @@ Requested September 1. Calendar reminder set for September 4.
 #gtd/waiting #project/september-release
 ```
 
-Writing `@mei` would send a real mention notification if that user exists on the instance. Use mentions for intentional collaboration, not as GTD contexts such as `@home` or `@phone`.
+Writing `@mei` can send a real mention notification if that exact-case user exists and can read the memo. Use mentions for intentional collaboration, not as GTD contexts such as `@home` or `@phone`.
 
-## Use Shortcuts for decisions and pins for focus
+## Use Saved Views for decisions and pins for focus
 
-The home timeline tells you what was recorded recently. It should not also decide what deserves attention now. Save a few filters as [Shortcuts](/docs/usage/shortcuts), and let each one answer an operating question:
+The home timeline tells you what was recorded recently. It should not also decide what deserves attention now. Save a few filters as [Saved Views](/docs/usage/saved-views), and let each one answer an operating question:
 
 | Question | Filter |
 | --- | --- |
@@ -121,7 +121,7 @@ If you can still choose the right action without that filter, the extra tag has 
 
 ## Run a daily reset and weekly review
 
-A Shortcut can find a state, but it cannot prove that one memo in a project has a matching next action in another. Review exists to inspect those gaps.
+A Saved View can find a state, but it cannot prove that one memo in a project has a matching next action in another. Review exists to inspect those gaps.
 
 A daily reset should take only a few minutes:
 

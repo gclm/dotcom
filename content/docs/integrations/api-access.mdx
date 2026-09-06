@@ -24,6 +24,29 @@ curl -H "Authorization: Bearer memos_pat_..." \
 
 For browser-based integrations, bearer-token requests may be sent cross-origin. Cookie authentication remains same-origin; do not build third-party API clients around a user's browser session cookie.
 
+## 0.31 client migration
+
+Review these changes before pointing an existing integration at 0.31:
+
+| Area | Required client change |
+| --- | --- |
+| Saved Views | Replace `ShortcutService` with `MemoViewService`, shortcut resources with view resources, and `/api/v1/users/*/shortcuts/*` with `/api/v1/users/*/views/*`. Stored filters migrate automatically. |
+| Authorization | Run mutations as the memo author. Assigned memo edits also require Space membership; instance and Space admin roles do not override authorship. Users manage their own reactions. |
+| Comments | Send visibility and placement intentionally. `CreateMemoComment` defaults omitted visibility to `PRIVATE`; `SetMemoRelations` rejects `COMMENT`. Parent deletion does not delete comment memos. |
+| Reactions | Stop reading `Reaction.content_id` (`contentId` in JSON). Identify the memo from the request or the reaction resource name. |
+| Inline images | Bind managed attachments to the memo before or during the same mutation that references them in Markdown. An uploaded but unbound attachment is not enough. |
+| S3 files | Use the authenticated Memos file route. Managed S3 attachments no longer expose presigned object URLs through `external_link` (`externalLink` in JSON). Preserve share authorization on shared attachment and thumbnail URLs. |
+| JSON responses | Allow absent unset protobuf message fields. Scalar defaults and empty lists are still emitted; do not depend on every message field appearing as `null`. |
+| Usernames | Use the exact username case for lookup and authentication. See [Users & Roles](/docs/admin/users-roles#usernames). |
+
+### Spaces in API clients
+
+A memo's `space` is a resource name such as `spaces/team-notes`, or absent when Unassigned. `visibility: "SPACE"` requires placement in a Space. Filters support `space == null`, `space == "spaces/team-notes"`, and `has_location`.
+
+When moving a `SPACE` memo, include both `space` and `visibility` in the update mask and explicitly confirm `SPACE` visibility for the destination. When withdrawing it to Unassigned, select a non-Space visibility in the same update. Share links cannot be created for `SPACE` memos; revoke existing links before changing a memo to that audience.
+
+The [Latest API reference](/docs/api/latest) tracks `main`, which may include changes after a release candidate. The 0.29 and 0.30 references describe those historical versions. For an exact 0.31.0-rc.1 schema, use the [tagged OpenAPI specification](https://github.com/usememos/memos/blob/v0.31.0-rc.1/proto/gen/openapi.yaml).
+
 ## Where to go next
 
 - [API Reference](/docs/api) — every service and method, REST and gRPC

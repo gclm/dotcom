@@ -12,7 +12,7 @@ For production, run Memos behind a reverse proxy such as Nginx, Caddy, or Traefi
 - restrict access to the admin interface as needed
 - make sure the externally visible URL matches what Memos uses for links and cookies
 
-In Memos 0.30 and later, setting `MEMOS_INSTANCE_URL` also enables public mode. If the variable is empty, anonymous visitors are redirected to sign-in even when the proxy itself is publicly reachable.
+In Memos 0.31, `MEMOS_INSTANCE_URL` and access policy are independent. A private instance can have a canonical URL behind a publicly reachable proxy. Select private or public access through the `ACCESS` instance setting; changing the URL does not change an existing access policy. The URL must be absolute HTTP(S), without credentials, a query, or a fragment.
 
 ## Why this matters
 

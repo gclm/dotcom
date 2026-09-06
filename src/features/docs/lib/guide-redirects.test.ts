@@ -15,4 +15,24 @@ describe("guide documentation redirects", () => {
       permanent: true,
     });
   });
+
+  it.each(["/docs/guides/shortcuts", "/docs/usage/shortcuts"])("redirects %s directly to Saved Views", async (source) => {
+    const redirects = (await nextConfig.redirects?.()) ?? [];
+
+    expect(redirects).toContainEqual({
+      source,
+      destination: "/docs/usage/saved-views",
+      permanent: true,
+    });
+  });
+
+  it("redirects retired RSS documentation to the removal explanation", async () => {
+    const redirects = (await nextConfig.redirects?.()) ?? [];
+
+    expect(redirects).toContainEqual({
+      source: "/docs/integrations/rss",
+      destination: "/docs/operations/upgrade#removed-features",
+      permanent: true,
+    });
+  });
 });

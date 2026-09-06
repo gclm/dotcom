@@ -19,7 +19,8 @@ The JWT secret is auto-generated as a UUID on first run and stored in the databa
 
 ## Core recommendations
 
-- leave `MEMOS_INSTANCE_URL` empty for private mode; set it only when anonymous public access is intended and to the canonical URL used by your reverse proxy
+- select private access in the `ACCESS` instance setting when anonymous public access is not intended
+- set `MEMOS_INSTANCE_URL` to the canonical URL used by your reverse proxy; changing this URL does not change access policy
 - disable user registration if your instance is private
 - disable public memo visibility if you do not want any public content
 - use HTTPS in front of the instance

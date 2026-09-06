@@ -67,9 +67,10 @@ All `MEMOS_*` variables correspond directly to command-line flags. Common ones:
 | `MEMOS_DATA` | `/var/opt/memos` | Data directory |
 | `MEMOS_DRIVER` | `sqlite` | Database backend |
 | `MEMOS_DSN` | auto | Database connection string |
-| `MEMOS_INSTANCE_URL` | `` | Public instance URL; empty enables private mode |
+| `MEMOS_INSTANCE_URL` | `` | Canonical external URL; independent of access policy |
 | `MEMOS_DEMO` | `false` | Demo mode |
-| `MEMOS_ALLOW_PRIVATE_WEBHOOKS` | `false` | Allow webhook URLs that resolve to private or reserved IP ranges |
+| `MEMOS_WEBHOOK_PRIVATE_NETWORK_ALLOWLIST` | empty | Exact hostnames, IP addresses, or CIDRs allowed as private webhook destinations |
+| `MEMOS_ALLOW_PRIVATE_WEBHOOKS` | `false` | Deprecated blanket exception for private webhook destinations |
 | `MEMOS_LOG_LEVEL` | `info` | Log verbosity (`debug`, `info`, `warn`, `error`) |
 
 Typical example:
@@ -86,7 +87,7 @@ docker run -d \
   neosmemo/memos:stable
 ```
 
-The quick-start command at the top of this page omits `MEMOS_INSTANCE_URL`, so it runs in private mode. The example above enables public mode and anonymous public surfaces by setting the canonical external URL.
+On a fresh instance, the quick-start command initializes private access because it omits `MEMOS_INSTANCE_URL`. A configured URL initializes public access only when the access setting does not yet exist. In 0.31, select the desired `ACCESS` policy in instance settings or [deployment configuration](/docs/configuration/deployment-configuration#access-policy); changing the URL of an existing instance does not change that policy.
 
 ## External databases
 

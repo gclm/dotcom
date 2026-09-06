@@ -17,6 +17,10 @@ Memos 0.30 replaced the earlier MCP implementation with a stateless, tools-only 
 
 The previous prompts, resources, tool-filtering headers, route aliases, and unprefixed tool names are no longer available. Tool failures now use the standard MCP `isError` result with readable text content.
 
+### Migrating to 0.31
+
+Replace `shortcut_list_shortcuts` with `memo_view_list_memo_views`. Existing saved filters migrate automatically, but client tool names and request mappings must change. Tool calls also follow the new author and Space membership permissions. Comments created without an explicit visibility default to `PRIVATE`. See [API migration notes](/docs/integrations/api-access#031-client-migration).
+
 ## Connecting a client
 
 The server uses the **Streamable HTTP** transport. Point any MCP client that supports it at your instance's `/mcp` endpoint and authenticate with a [personal access token](/docs/integrations/api-access) as a Bearer credential:
@@ -48,7 +52,7 @@ Tool calls run against the same REST API as the web app, with the same permissio
 
 - The token identifies you; tools can only see and change what your account can.
 - Mutating tools (create, update, delete) require a valid token.
-- Public reads may work without a token only when the instance URL is configured, public mode is enabled, and the underlying REST endpoint allows anonymous access.
+- Public reads may work without a token only when the instance access policy permits public reads and the underlying REST endpoint allows anonymous access. The canonical instance URL does not select that policy.
 
 Create and revoke personal access tokens from your user settings in the app. See [API Access](/docs/integrations/api-access).
 
@@ -76,7 +80,7 @@ The server exposes a curated, memo-focused toolset:
 | `attachment_create_attachment` | Upload an attachment |
 | `attachment_get_attachment` | Get an attachment |
 | `attachment_delete_attachment` | Delete an attachment |
-| `shortcut_list_shortcuts` | List the current user's shortcuts |
+| `memo_view_list_memo_views` | List the current user's saved views |
 | `auth_get_current_user` | Resolve the user represented by the token |
 
 Each tool maps to an endpoint of the [REST API](/docs/api), so request and response shapes match the API reference. Tools carry standard MCP annotations (read-only, destructive, idempotent) so clients can ask for confirmation before destructive actions.

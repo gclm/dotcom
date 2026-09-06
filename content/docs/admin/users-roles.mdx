@@ -3,9 +3,22 @@ title: Users & Roles
 description: Manage users and permissions.
 ---
 
-Memos supports two roles:
+Memos has two instance roles: **Admin** and **User**. The first account created during setup becomes an instance admin. Instance admins manage accounts, instance configuration, and access policy.
 
-- Admin
-- User
+## Instance roles and Space roles
 
-Admins can create users, update profiles, and manage access. The first account created during setup becomes an admin.
+Each [Space](/docs/usage/spaces) has its own accepted **Admin** and **User** memberships. Instance roles and Space roles are independent: an instance User can create and administer a Space, while an instance Admin has no automatic membership in another user's Space.
+
+Space admins manage the Space's metadata, invitations, and members. Neither kind of admin can edit another author's memo, change its visibility or placement, or manage its attachments, relations, or shares. Reading also follows the memo's visibility; instance administration does not grant access to private or members-only content.
+
+## Usernames
+
+Sign-in and username lookup are case-sensitive: `Alice` and `alice` are different spellings. New and renamed usernames must contain 1–36 ASCII letters or digits, with hyphens allowed only inside the name. Underscores, email addresses, and non-ASCII usernames cannot be newly assigned.
+
+Legacy usernames remain addressable with their exact spelling. Spellings outside the new grammar cannot be written as new mentions. See [Authentication](/docs/configuration/authentication) and [Mentions](/docs/usage/reactions-comments#mentions).
+
+## Removing access or accounts
+
+Removing a Space member leaves their contributions in that Space. A Space must always retain an active admin, so assign another admin before removing or archiving the last one.
+
+Deleting an account is blocked while it has active Space memberships, including when the API request sets `force`. Resolve those memberships first. Deleting a Space instead permanently deletes all directly assigned memos; it is not an equivalent way to remove one user's access.

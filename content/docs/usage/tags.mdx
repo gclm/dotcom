@@ -3,7 +3,7 @@ title: Tags
 description: Organize memos with hashtags and filter them with searchable metadata.
 ---
 
-Tags are created directly from memo content. Write `#tagname` anywhere in a memo and Memos extracts it automatically.
+Tags are created directly from memo content. Write `#tagname` in ordinary Markdown text and Memos extracts it automatically. The same grammar is used by rendering, editing, filtering, statistics, and the API.
 
 ## Tag basics
 
@@ -14,7 +14,15 @@ This relates to #project-alpha and #development.
 Meeting with #team tomorrow to discuss #roadmap.
 ```
 
-Tags inside Markdown links are ignored. Escape a literal tag with a backslash, such as `\#not-a-tag`. Tag names support Unicode letters and combining marks.
+Tags can contain multilingual letters, combining marks, digits, underscores, emoji, `-`, `+`, and `&`. Numeric-only tags such as `#2026` are valid. Word-internal apostrophes work in tags such as `#O’Brien` and `#team's`.
+
+Use `/` between non-empty segments for hierarchy: `#project/backend` also contributes the ancestor tag `project`. A slash cannot start or end a tag or separate empty segments. Tag values are case-sensitive; `#Work` and `#work` remain distinct.
+
+Tags are recognized in ordinary text, including headings and list items. Code, links, images, URLs, and other opaque Markdown contexts do not create tags. Escape a literal hash with a backslash, such as `\#not-a-tag`. Spaces and unsupported punctuation end a tag: `#release.notes` produces `release`, while `#C++` and `#R&D` remain complete tag values.
+
+### Existing memos after upgrading
+
+0.31 does not automatically rebuild stored tag indexes. Rendering and editing use the new grammar immediately, while filters, counts, and statistics adopt it as each memo is saved again. If an older memo displays a tag but does not yet appear in its filter, save that memo again.
 
 ## Personal tag appearance
 
@@ -33,7 +41,7 @@ When upgrading to 0.30, existing instance-level tag metadata is copied to curren
 
 ## Filters
 
-Memos also supports richer filtering beyond plain text search. Saved filters and shortcuts can combine tags with memo properties.
+Memos also supports richer filtering beyond plain text search. Saved filters and saved views can combine tags with memo properties.
 
 Examples:
 
@@ -54,7 +62,7 @@ tags.exists(t, t.startsWith("project"))
 
 ## Related guides
 
-- use [shortcuts](/docs/usage/shortcuts) to save filters you run often
+- use [saved views](/docs/usage/saved-views) to save filters you run often
 - combine tags with [search](/docs/usage/search-archive) when browsing older memos
 - align tag naming with how your team expects to browse content
 - let recurring subjects become Collections with the [digital Bullet Journal guide](/docs/guides/bullet-journal)

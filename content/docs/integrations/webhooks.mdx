@@ -59,4 +59,16 @@ Webhook URLs must use `http` or `https` and must resolve successfully when they 
 
 By default, Memos rejects webhook targets that resolve to reserved or private IP ranges, including loopback, RFC 1918 private networks, link-local addresses, and IPv6 local ranges. This protects the instance from server-side request forgery.
 
-If your deployment intentionally sends webhooks to trusted services on a private network, start Memos with `--allow-private-webhooks` or set `MEMOS_ALLOW_PRIVATE_WEBHOOKS=true`. Keep this disabled for public or multi-user instances unless you control every webhook target.
+In 0.31, allow only the private destinations your integration needs with `--webhook-private-network-allowlist` or `MEMOS_WEBHOOK_PRIVATE_NETWORK_ALLOWLIST`. Entries are exact hostnames, IP addresses, or CIDRs; hostnames are not wildcard patterns.
+
+```bash
+./memos --webhook-private-network-allowlist=hooks.internal.example,10.0.0.8,10.20.0.0/24
+```
+
+The equivalent environment variable is a comma-separated list:
+
+```bash
+export MEMOS_WEBHOOK_PRIVATE_NETWORK_ALLOWLIST="hooks.internal.example,10.0.0.8,10.20.0.0/24"
+```
+
+The default empty list keeps private-network protection enabled. The older `--allow-private-webhooks` / `MEMOS_ALLOW_PRIVATE_WEBHOOKS=true` option remains compatible but is deprecated because it allows every private destination. Replace it with the narrowest entries your receivers require.
